@@ -27,7 +27,7 @@ int main() {
             index2=i;
              if(flag2==1)
              {
-                 count = index2-index1;
+                 count = index1-index2;
              }
         }
         
