@@ -17,14 +17,14 @@ public class Transactions
 
     public static void main(String args[])
     {
-        String s[] ={"99 98 300","99 66 200","98 77 500"};
+        String s[] ={"99 98 300","66 66 200","98 77 500"};
        int a[]=new int[6];
        int i,k=0;
        for(i=0;i<3;i++)
        {
            int j=0;
-           a[k++] = (Character.getNumericValue(s[i].charAt(j))*10)+(Character.getNumericValue(s[i].charAt(j+1)));
-           a[k++] = (Character.getNumericValue(s[i].charAt(j+3))*10)+(Character.getNumericValue(s[i].charAt(j+4)));
+           a[k++] = ((char)(s[i].charAt(j)-'0')*10)+((char)(s[i].charAt(j+1)-'0'));
+           a[k++] = ((char)(s[i].charAt(j+3)-'0')*10)+((char)(s[i].charAt(j+4)-'0'));
        }
       
         int max = Max(a);
