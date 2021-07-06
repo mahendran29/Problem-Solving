@@ -1,83 +1,86 @@
-import java.util.*;
-
 class Random
 {
-  static class Node
-  {
-    char data;
-    Node left;
-    Node right;
+	static class Node
+	{
+		char data;
+		Node left,right;
+		Node(char data)
+		{
+			this.data=data;
+		}
+	}
+     static int Height(Node root)
+     {
+     	if(root==null)
+     	{
+     		return 0;
+     	}
 
-    Node (char data)
-    {
-      this.data = data;
-    }
-  }
+     	int lheight = Height(root.left);
+     	int Rheight = Height(root.right);
 
-static Node build(char in[], char pre[])
-{
-    int inindex = 0; 
-    int preindex = 0;
-    int flag = 0;
-    Stack<Node> stk = new Stack<>();
-    Node root = null;
-    Node prev = null;
-    Node node=null;
+     	if(lheight > Rheight)
+     	{
+     		return lheight+1;
+     	}
+     	else
+     	{
+     		return Rheight+1;
+     	}
+     }
 
-    root  = prev = new Node(pre[preindex]);
-    preindex++;
-    stk.push(root);
+     static void ZigZag(Node root)
+     {
+     	int height = Height(root);
+     	System.out.println("Height of the tree:\n"+height);
+     	int i;
+     	boolean flag=false;
+     	for(i=1;i<=height;i++)
+     	{
+     		Traverse(root,i,flag);
+     		flag=!flag;
+     	}
+     }
 
-    while(preindex < pre.length)
-    {
-      if(!stk.isEmpty() && in[inindex] == stk.peek().data)
-      {
-        prev = stk.pop();
-        inindex++;
-        flag = 0;
-      }
-      else
-      {
-         node = new Node(pre[preindex]);
-         
-          if(flag == 0)
-          {
-            prev.left = node;
-            prev = prev.left;
-          }
-          else
-          {
-            prev.right = node;
-            prev = prev.right;
-            flag = 1;
-          }
-          stk.add(node);
-          preindex++;
-      }
-    }
-    return root;
-}
+     static void Traverse(Node root,int height,boolean flag)
+     {
+     	if(root==null)
+     	{
+     		return;
+     	}
+     	if(height==1)
+     	{
+     		System.out.print(root.data+" ");
+     	}
 
-public static void inorder(Node root)
-{
-  if(root == null)
-  {
-    return;
-  }
-
-  inorder(root.left);
-  System.out.println(root.data + " ");
-  inorder(root.right);
-}
+     	else if(height>1)
+     	{
+     		if(flag==true)
+     		{
+     			Traverse(root.left,height-1,flag);
+     			Traverse(root.right,height-1,flag);
+     		}
+     		else
+     		{
+     			Traverse(root.right,height-1,flag);
+     			Traverse(root.left,height-1,flag);
+     		}
+     	}
+     }
 
 
-  public static void main(String args[])
-  {
-    char[] inorder = {'H','D', 'P','L','A','Z','C','E'};
-    char[] preorder = {'A','D','H','L','P','Z','C','E'};
+	public static void main(String[] args) 
+	{
+		Node root = new Node('A');
+		root.left=new Node('D');
+		root.right=new Node('Z');
+		root.left.left = new Node('H');
+		root.left.right = new Node('L');
+		root.left.right.left =new Node('P');
+		root.right.right=new Node('C');
+		root.right.right.right=new Node('E');
 
-    Node root = build(inorder, preorder);
-
-    inorder(root);
-  }
+		ZigZag(root);
+		
+	}
 }
