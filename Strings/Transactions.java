@@ -23,8 +23,8 @@ public class Transactions
        for(i=0;i<3;i++)
        {
            int j=0;
-           a[k++] = ((char)(s[i].charAt(j)-'0')*10)+((char)(s[i].charAt(j+1)-'0'));
-           a[k++] = ((char)(s[i].charAt(j+3)-'0')*10)+((char)(s[i].charAt(j+4)-'0'));
+           a[k++] = ((s[i].charAt(j)-'0')*10)+((s[i].charAt(j+1)-'0'));
+           a[k++] = ((s[i].charAt(j+3)-'0')*10)+((s[i].charAt(j+4)-'0'));
        }
       
         int max = Max(a);
