@@ -1,77 +1,38 @@
-import java.util.*;
-
 class Random
 {
-	static class Node
-	{
-		int data;
-		Node left,right;
+    static class Node
+    {
+        int data;
+        Node left,right;
 
-		Node(int data)
-		{
-			this.data=data;
-		}
-	}
+    }
 
-	static void VerticalOrderUtil(Node root,int d,HashMap<Integer,ArrayList<Integer>> map)
-	{
-		if(root==null)
-		{
-			return;
-		}
+    static boolean BST(Node root,Node left,Node right)
+    {
+        if(root==null)
+        {
+            return true;
+        }
+        else if(left!=null && root.data <= left.data )
+        {
+           return false;
+        }
+        else if(right!=null && root.data>right.data)
+        {
+               return false;
+        }
 
-		ArrayList<Integer> temp = map.get(d);
-		if(temp==null)
-		{
-			temp = new ArrayList<>();
-			temp.add(root.data);
-		}
-		else
-		{
-			temp.add(root.data);
-		}
-
-		map.put(d,temp);
-
-		VerticalOrderUtil(root.left,d-1,map);
-		VerticalOrderUtil(root.right,d+1,map);
+        return BST(root.left,left,root) && BST(root.right,root,right);
+    }
 
 
-	}
+    public static void main(String[] args)
+     {
+        Node root = new Node(4);
+        root.left = new Node(10);
+        root.right= new Node(6);
 
-
-
-
-	static void printVerticalOrder(Node root)
-	{
-		HashMap<Integer,ArrayList<Integer>> map = new HashMap<>();
-
-		VerticalOrderUtil(root,0,map);
-
-		for(Map.Entry<Integer,ArrayList<Integer>> temp : map.entrySet())
-		{
-			ArrayList<Integer> list = temp.getValue();
-			for(Integer i:list)
-			{
-				System.out.print(i+" ");
-			}
-
-			System.out.println();
-		}
-	}
-
-	public static void main(String args[])
-	{
-		Node root = new Node(1);
-        root.left = new Node(2);
-        root.right = new Node(3);
-        root.left.left = new Node(4);
-        root.left.right = new Node(5);
-        root.right.left = new Node(6);
-        root.right.right = new Node(7);
-        root.right.left.right = new Node(8);
-        root.right.right.right = new Node(9);
-        System.out.println("Vertical Order traversal is");
-        printVerticalOrder(root);
-	}
+        boolean val=BST(root);
+        System.out.println(val)
+    }
 }

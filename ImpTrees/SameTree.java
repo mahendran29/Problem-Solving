@@ -18,6 +18,11 @@ public class SameTree
          {
              return true;
          }
+
+         if(root1==null || root2==null)
+         {
+             return false;
+         }
          return (root1.data==root2.data)&&identical(root1.left,root2.left)&&identical(root1.right,root2.right);
 
     }
@@ -26,11 +31,12 @@ public class SameTree
     {
         Node root1 = new Node(1);
         root1.left = new Node(2);
+        root1.left.left = new Node(5);
         root1.right = new Node(3);
         
         
         Node root2 = new Node(1);
-        root2.left = new Node(3);
+        root2.left = new Node(2);
         root2.right = new Node(3);
 
         System.out.println("Identical:"+identical(root1, root2));
