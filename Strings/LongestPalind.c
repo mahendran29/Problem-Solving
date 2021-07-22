@@ -1,75 +1,55 @@
-// A O(n^2) time and O(1) space
-// program to find the longest
-// palindromic substring
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-// A utility function to print
-// a substring str[low..high]
-void printSubStr(char *str, int low, int high)
+
+int longestPalin(char str[])
 {
-    for (int i = low; i <= high; ++i)
-        printf("%c", str[i]);
-}
-
-// This function prints the longest
-// palindrome substring (LPS)
-// of str[]. It also returns the
-// length of the longest palindrome
-int longestPalSubstr(char *str)
-{
-
-    // The result (length of LPS)
-    int maxLength = 1;
-
-    int start = 0;
+    int maxlength=1;
+    int start=0,i;
     int len = strlen(str);
+    int low=0,high=0;
 
-    int low, high;
-
-    // One by one consider every
-    // character as center point of
-    // even and length palindromes
-    for (int i = 1; i < len; ++i)
+    for(i=1;i<len;i++)
     {
-        // Find the longest even length
-        // palindrome with center points
-        // as i-1 and i.
-        low = i - 1;
-        high = i;
-        while (low >= 0 && high < len && str[low] == str[high])
+        low =i-1;
+        high=i;
+        while(low>=0 && high<len && str[low]==str[high])
         {
-            if (high - low + 1 > maxLength)
+            if(high-low+1 > maxlength)
             {
-                start = low;
-                maxLength = high - low + 1;
+                start=low;
+                maxlength=high-low+1;
             }
-            --low;
-            ++high;
+            low--;
+            high++;
         }
-
-        low = i - 1;
-        high = i + 1;
-        while (low >= 0 && high < len && str[low] == str[high])
+  
+        low=i-1;
+        high=i+1;
+         while(low>=0 && high<len && str[low]==str[high])
         {
-            if (high - low + 1 > maxLength)
+            if(high-low+1 > maxlength)
             {
-                start = low;
-                maxLength = high - low + 1;
+                start=low;
+                maxlength=high-low+1;
             }
-            --low;
-            ++high;
+            low--;
+            high++;
         }
     }
 
-    printf("Longest palindrome substring is: ");
-    printSubStr(str, start, start + maxLength - 1);
-
-    return maxLength;
+      for (int i = start; i <= start+maxlength-1; ++i)
+        printf("%c", str[i]);
+    
+    return maxlength;
+  
 }
-int main()
+
+
+
+void main()
 {
-    char str[] = "forgeeksskeegfor";
-    printf("\nLength is: %d", longestPalSubstr(str));
-    return 0;
+    char str[] = "rfkqyuqfjkxy";
+    printf("Longest:%d",longestPalin(str));
 }
