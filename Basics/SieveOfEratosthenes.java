@@ -11,7 +11,7 @@ class SieveOfEratosthenes
        {
            if(prime[i]==true)
            {
-               for(j=i*i;j<=N;j+=i)
+               for(j=i*2;j<=N;j+=i)
                {
                    prime[j]=false;
                }
@@ -19,10 +19,10 @@ class SieveOfEratosthenes
        }
 
 
-       for(i=2;i<=N;i++)
+       for(i=2;i*i<=N;i++)
         {
             if(prime[i]==true)
-              System.out.print(i+" ");
+              System.out.print(i*i+" ");
         }
    }
 
