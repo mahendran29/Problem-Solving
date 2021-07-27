@@ -1,26 +1,30 @@
 #include <stdio.h>
 
-int PairWithSum(int arr[],int n,int sum)
+int PairWithSum(int a[],int n,int k)
 {
-      int start=0,end=n-1,count=0;
-        while(start<end)
-        {
-            if(arr[start]+arr[end]==sum)
-            {
-                 count++;
-                 start++;
-                 end--;
-            }
-               
-            
-             if(arr[start]+arr[end]<sum)
-               start++;
-             
-             else
-               end--;
-        }
-        
-        return count;
+     int i=0;
+     int j=n-1;
+     int count=0;
+     while(i<j)
+     {
+         if(a[i]+a[j]==k)
+         {
+             count++;
+             i++;
+             j--;
+         }
+         else if(a[i]+a[j]<k)
+         {
+             i++;
+            // printf("inside2");
+         }
+         else
+         {
+             j--;
+            // printf("inside3");
+         }
+     }
+    return count;
 }
 
 
