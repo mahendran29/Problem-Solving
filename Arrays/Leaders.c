@@ -26,7 +26,7 @@ void Leaders(int a[],int n)
 
 int main()
 {
-    int a[]={7,9,3,3,3,3};
+    int a[]={16,17,4,3,5,2};
     int n = sizeof(a)/sizeof(a[0]);
     Leaders(a,n);
 }
