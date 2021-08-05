@@ -1,130 +1,119 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 struct Node
 {
     int data;
     struct Node *next;
 };
-struct Node *head1=NULL,*head2=NULL;
 
-struct Node* Create(int key)
+
+void display();
+
+struct Node *Create(int data)
 {
-    struct Node *node = (struct Node*)malloc(sizeof(struct Node*));
-    node->data=key;
-    node->next=NULL;
-    return node;
+    struct Node *node = (struct Node *)malloc(sizeof(struct Node *));
+    node->data = data;
+    node->next = NULL;
 }
 
-struct Node* Insert(int key)
+struct Node* Reverse(struct Node *temp)
 {
-    int size=key;
-    int ch=0;
-    struct Node *head=NULL;
-    struct Node *tail=NULL;
-    printf("Enter values for the node:");
-    while(size--)
-    {
-        scanf("%d",&ch);
-        if(head==NULL)
-        {
-            head=tail=Create(ch);
-        }
-        else
-        {
-            tail->next=Create(ch);
-            tail=tail->next;
-        }
-    }
-    return head;
-}
-struct Node* Reverse(struct Node* temp)
-{
-    struct Node *next=NULL;
-    struct Node *prev=NULL;
     struct Node *curr=temp;
-    while(curr)
-    { 
-         next=curr->next;
-         curr->next=prev;
-         
-         prev=curr;
-         curr=next;
+    struct Node *next=NULL,*prev=NULL;
+
+    while(curr!=NULL)
+    {
+        next=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=next;
+
     }
 
     return prev;
-
 }
-struct Node* Addition(struct Node *temp1,struct Node *temp2)
+
+struct Node *head=NULL,*tail=NULL;
+
+
+void Final(int data)
 {
+      struct Node *node = (struct Node*)malloc(sizeof(struct Node*));
+      node->data=data;
+      node->next=NULL;
 
-    struct Node *head1=Reverse(temp1);
-    struct Node *head2=Reverse(temp2);
-    struct Node *tot=NULL;
-    struct Node *move=NULL;
-    struct Node *ad=NULL;
-    struct Node *tp1=head1;
-    struct Node *tp2=head2;
-    int sum=0,carry=0;
+      if(head==NULL)
+          head=tail=node;
+      else
+      {
+          tail->next=node;
+          tail=node;
+      }
+}
 
-    while(tp1!=NULL||tp2!=NULL)
-    {
-       sum=(tp1?tp1->data:0)+(tp2?tp2->data:0)+carry;
-       
-       carry = (sum>=10)?1:0;
-       sum=sum%10; 
-       ad=Create(sum);
+struct Node* Adding(struct Node *t1,struct Node *t2)
+{
+     struct Node *rl1 = Reverse(t1);
+     struct Node *rl2 = Reverse(t2);
+     struct Node *temp=NULL;
+     int a,b,sum=0,carry=0;
 
-       if(tot==NULL)
-       {
-           tot=move=ad;
-       }
-       else
-       {
-           move->next=ad;
-       }
+     while(rl1 != NULL || rl2!= NULL)
+     {
+         a = rl1?rl1->data:0;
+         b = rl2?rl2->data:0;
+         sum=a+b+carry;
 
-       move=ad;
-       if(tp1)
-       {
-           tp1=tp1->next;
-       }
-       if(tp2)
-       {
-         tp2=tp2->next;
-       }
+         carry = sum>=10 ? 1:0;
+         sum = sum%10;
 
+         Final(sum);
+
+         if(rl1)
+             rl1=rl1->next;
+         if(rl2)
+             rl2=rl2->next;
     }
 
     if(carry>0)
-    {
-        move->next=Create(carry);
-    }
-    return tot;
+      Final(carry);
 }
+
+
 
 void display(struct Node *temp)
 {
-    struct Node *trav=temp;
-    while(trav)
+    while(temp!=NULL)
     {
-        printf("%d",trav->data);
-        trav=trav->next;
+        printf("%d",temp->data);
+        temp=temp->next;
     }
+
     printf("\n");
 }
 
 void main()
 {
-     head1=Insert(2);
-     head2=Insert(1);
-     display(head1);
-     display(head2);
-     printf("\n\n");
+    struct Node *first=NULL, *second=NULL;
+    first = Create(2);
+    first->next = Create(9);
+    first->next->next = Create(1);
+    first->next->next->next = Create(2);
+    first->next->next->next->next = Create(9);
+    first->next->next->next->next->next = Create(9);
+    first->next->next->next->next->next->next = Create(2);
+    first->next->next->next->next->next->next->next = Create(8);
+    first->next->next->next->next->next->next->next->next = Create(2);
 
-    struct Node *final= Addition(head1,head2);
-    final=Reverse(final);
-    display(final);
+    second = Create(2);
+    second->next = Create(8);
+    second->next->next = Create(9);
 
+    display(first);
+    display(second);
+
+    Adding(first,second);
+    printf("After Adding:");
+    display(head);
 }
