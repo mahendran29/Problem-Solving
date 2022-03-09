@@ -17,7 +17,7 @@ void leftRotate(int arr[],int d,int n)
     // reverseArray(arr,0,n-1);
 
     reverseArray(arr,0,d-1);
-    reverseArray(arr,d,n-1);   // This is code for Right Rotation
+    reverseArray(arr,d,n-1);   // This is code for Left Rotation
     reverseArray(arr,0,n-1);
 }
 
